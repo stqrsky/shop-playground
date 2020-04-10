@@ -40,7 +40,7 @@ class ProductController extends Controller
     {
         Product::create($this->validateData());
 
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')->with('info', 'Good Boy, You added a product!');
 
         //LONGER VERSION
         // $validatedData = $request->validate([
@@ -95,7 +95,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        //validation function at the bottom
+        $product->update($this->validateData());
+
+        return redirect()->route('admin.products.index');
     }
 
     /**
