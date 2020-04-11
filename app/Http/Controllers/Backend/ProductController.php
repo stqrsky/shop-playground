@@ -97,8 +97,18 @@ class ProductController extends Controller
     {
         //validation function at the bottom
         $product->update($this->validateData());
-
         return redirect()->route('admin.products.index');
+
+        //LONGER SOLUTION
+        // $validateDate = $request->validate([
+        //     'name' => 'required|min:3',
+        //     'price' => 'required|numeric|between:0,9999,99',
+        //     'description' => 'required|min:3',
+        //     'msrp' => 'numeric|between:0,9999,99',
+        //     'stock' => 'integer'
+        // ]);
+        // $product->update($validateData);
+        // return redirect()->route('admin.products.index');
     }
 
     /**
@@ -110,7 +120,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-
         return redirect()->route('admin.products.index');
     }
 

@@ -33,10 +33,10 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
-                                            <th>Description</th>
+                                            <!-- <th>Description</th>
                                             <th>Price</th>
                                             <th>MSRP</th>
-                                            <th>Stock</th>
+                                            <th>Stock</th> -->
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -45,10 +45,10 @@
                                         <tr>
                                             <td>{{ $category->id }}</td>
                                             <td>{{ $category->name }}</td>
-                                            <td>{{ $category->description }}</td>
+                                            <!-- <td>{{ $category->description }}</td>
                                             <td>{{ $category->price }}€</td>
                                             <td>@if($category->msrp) {{ $category->msrp }}€ @endif</td>
-                                            <td>{{ $category->stock }}</td>
+                                            <td>{{ $category->stock }}</td> -->
                                             <td>
                                                 <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-primary btn-sm w-100">Edit</a>
                                             </td>

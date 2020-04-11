@@ -41,15 +41,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->name = $request->input('description');
-        $category->name = $request->input('price');
-        $category->name = $request->input('msrp');
-        $category->name = $request->input('stock');
-        $category->save();
+        Category::create($this->validateData());
+        return redirect()->route('admin.categories.index');
 
-        return redirect()->route('admin/categories.index');
+        // $data = $this->validateData();
+        // Category::create($data);
+        // return redirect()->route('admin/categories/index');
+
+        ////LONGER WAY
+        // $validateData = $request->validate([
+        //     'name' => 'required|min:3',
+        // ]);
+        // $category->create($validateData);
+        // return redirect()->route('admin/categories/index');
+
+        // // LONGER WAY
+        // $category = new Category();
+        // $category->name = $request->name;
+        // $category->save();
+        // return redirect()->route('admin/categories.index');
     }
 
     /**
@@ -60,7 +70,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('backend/categories/edit', ['category' => $category]);
+        return redirect()->route('admin.categories.edit', $category);
     }
 
     /**
@@ -71,7 +81,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('backend/categories/edit', ['category' => $category]);
     }
 
     /**
@@ -83,7 +93,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->update($this->validateData());
+        return redirect()->route('admin.categories.index');
+
+        // $category->name = 'New Category Name';
+        // $category->save();
+        // return redirect('admin/categories');
+
+        ////LONGER WAY
+        // $validateData = request()->validate([
+        //     'name' => 'required|min:3',
+        // ]);
+        // $category->update($validateData);
+        // return redirect()->route('admin.categories.index');
+
+        // $category->name = 'New Category Name';
+        // $category->save();
     }
 
     /**
@@ -94,6 +119,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('admin.categories.index');
+    }
+
+
+    public function validateData()
+    {
+        return request()->validate([
+            'name' => ['required', 'min:3'],
+        ]);
     }
 }
