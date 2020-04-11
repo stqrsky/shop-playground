@@ -18,7 +18,7 @@
                     <div class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <a href="#" class="btn btn-primary btn-sm">Add</a>
+                                <a href="{{ route('admin.categories.create') }}" class="btn btn-primary btn-sm">Add</a>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="sampleTable_filter" class="dataTables_filter pt-2">
@@ -41,16 +41,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @for($i=0; $i<10; $i++) <tr>
-                                            <td>1</td>
-                                            <td>Product Name</td>
-                                            <td>Lorem ipsum dolor sit amet...</td>
-                                            <td>32.99 €</td>
-                                            <td>34.99 €</td>
-                                            <td>61</td>
-                                            <td><a href="#" class="btn btn-primary btn-sm w-100">Edit</a></td>
-                                            </tr>
-                                            @endfor
+                                        @foreach($categories as $category)
+                                        <tr>
+                                            <td>{{ $category->id }}</td>
+                                            <td>{{ $category->name }}</td>
+                                            <td>{{ $category->description }}</td>
+                                            <td>{{ $category->price }}€</td>
+                                            <td>@if($category->msrp) {{ $category->msrp }}€ @endif</td>
+                                            <td>{{ $category->stock }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-primary btn-sm w-100">Edit</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

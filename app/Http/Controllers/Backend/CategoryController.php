@@ -15,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backend/categories/index');
+        // $categories = Category::all();
+        // return view('backend/categories/index', ['categories' => $categories]);
+
+        return view('backend/categories/index', [
+            'products' => Category::all()
+        ]);
     }
 
     /**
@@ -36,7 +41,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return view('backend/categories/edit');
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->name = $request->input('description');
+        $category->name = $request->input('price');
+        $category->name = $request->input('msrp');
+        $category->name = $request->input('stock');
+        $category->save();
+
+        return redirect()->route('admin/categories.index');
     }
 
     /**
@@ -47,7 +60,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('backend/categories/edit', ['category' => $category]);
     }
 
     /**
@@ -58,7 +71,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('backend/categories/edit');
+        //
     }
 
     /**
