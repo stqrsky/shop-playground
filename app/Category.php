@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name'];
+    protected $guarded = [];
+
+    // protected $fillable = ['name'];
+
+
+    public function scopeIdDescending($query)
+    {
+        return $query->orderBy('id', 'DESC');
+    }
 }
