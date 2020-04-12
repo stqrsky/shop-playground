@@ -19,8 +19,7 @@ class CategoryController extends Controller
         // return view('backend/categories/index', ['categories' => $categories]);
 
         return view('backend/categories/index', [
-            'categories' => Category::all(),
-            //    '' Category::idDescending()->get()
+            'categories' => Category::all()->sortByDesc("id")
         ]);
     }
 

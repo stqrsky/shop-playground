@@ -10,9 +10,4 @@ class Category extends Model
 
     // protected $fillable = ['name'];
 
-
-    public function scopeIdDescending($query)
-    {
-        return $query->orderBy('id', 'DESC');
-    }
 }
