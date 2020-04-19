@@ -16,7 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         return view('backend/products/index', [
-            'products' => Product::all()->sortByDesc("id")
+            // 'products' => Product::all()->sortByDesc("id")
+            'products' => Product::paginate(10)
         ]);
     }
 

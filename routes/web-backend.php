@@ -43,8 +43,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('/products', 'ProductController');
     Route::resource('/categories', 'CategoryController');
 
-
-
     Route::get('/orders',             function () {
         return view('backend/orders/index');
     });
