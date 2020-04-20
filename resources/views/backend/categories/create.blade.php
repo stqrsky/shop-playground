@@ -25,6 +25,18 @@
                         <p class="invalid-feedback">{{ $errors->first('name') }}</p>
                         @enderror
                     </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <select name="products[]" autocomplete="off" size="20" multiple>
+                            @foreach($allProducts as $product)
+                            <option value="{{ $product->id }}">{{ $product->name }} </option>
+                            @endforeach
+                        </select>
+                        @error('name')
+                        <p class="invalid-feedback">{{ $errors->first('name') }}</p>
+                        @enderror
+                    </div>
                     <!-- <div class="form-group">
                         <label class="control-label">Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" rows="3" name="description">{{ old('description') }}</textarea>
@@ -54,7 +66,7 @@
                         @enderror
                     </div> -->
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Image</label>
                         <div class="form-control py-3">
@@ -62,7 +74,7 @@
                             <input type="file">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="tile-footer">

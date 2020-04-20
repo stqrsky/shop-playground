@@ -10,7 +10,8 @@ class CategoryController extends Controller
 {
     public function show(Category $category)
     {
-        $products = \App\Product::all();
+        $products = category->products()->paginate(6);
+        // $products = \App\Product::all();
 
         return view('frontend/categories/show', [
             'category' => $category,

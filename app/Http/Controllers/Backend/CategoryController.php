@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -20,7 +21,7 @@ class CategoryController extends Controller
 
         return view('backend/categories/index', [
             // 'categories' => Category::all()->sortByDesc("id")
-            'categories' => Category::paginate(1)
+            'categories' => Category::paginate(10)
         ]);
     }
 
@@ -31,7 +32,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('backend/categories/create');
+        return view(
+            'backend/categories/create',
+            ['allProducts' => Product::all()]
+        );
     }
 
     /**
@@ -42,7 +46,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create($this->validateData());
+        $this->validateData();
+        $category = Category::create([
+            'name' => $request->input('name')
+        ]);
+        $category->products()->sync($request->input('products'));
+
         return redirect()->route('admin.categories.index');
 
         // $data = $this->validateData();
@@ -82,7 +91,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('backend/categories/edit', ['category' => $category]);
+        return view('backend/categories/edit', [
+            'category' => $category,
+            'allProducts' => Product::all(),
+            'selectedProducts' => $category->products
+        ]);
+        // return view('backend/categories/edit', ['category' => $category]);
     }
 
     /**
@@ -94,7 +108,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($this->validateData());
+        $this->validateData();
+        $category->update([
+            'name' => $request->input('name')
+        ]);
+        $category->products()->sync($request->input('products'));
+
         return redirect()->route('admin.categories.index');
 
         // $category->name = 'New Category Name';
@@ -129,6 +148,7 @@ class CategoryController extends Controller
     {
         return request()->validate([
             'name' => ['required', 'min:3'],
+            'products' => 'exists:products,id'
         ]);
     }
 }
