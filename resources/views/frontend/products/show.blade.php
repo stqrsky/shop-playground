@@ -17,7 +17,10 @@
                 @endif
             </div>
             <p class="mb-4 text-muted">{{ $product->description }}</p>
-            <div class="row mb-5 align-items-end">
+            <form method="POST" action="{{ route('addToCart') }}" class="row mb-5 align-items-end">
+                @csrf
+
+                <input name="id" type="hidden" value="{{ $product->id }}">
                 <div class="col-md-4">
                     <label class="font-weight-bold">Qty</label>
                     <input name="qty" type="number" value="1" class="form-control">
@@ -25,7 +28,7 @@
                 <div class="col-md-8">
                     <button type="submit" class="btn btn-dark btn-lg">Add to Cart</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

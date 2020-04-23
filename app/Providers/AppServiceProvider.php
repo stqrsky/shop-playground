@@ -25,6 +25,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('categories', Category::all());
+        ////before
+        // View::share('categories', Category::all());
+
+        try {
+            View::share('categories', Category::all());
+        } catch (\Exception $e) {
+            // categories tables has not been created yet...
+        }
     }
 }
