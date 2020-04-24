@@ -12,7 +12,7 @@
             <li class="breadcrumb-item">Edit</li>
         </ul>
     </div>
-    <form class="tile" method="POST" action="{{ route('admin.products.update', $product) }}">
+    <form class="tile" method="POST" action="{{ route('admin.products.update', $product) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="tile-body">
@@ -57,9 +57,12 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="control-label">Image</label>
-                        <div class="form-control py-3">
-                            <img class="w-100 mb-3" src="https://via.placeholder.com/150" />
-                            <input type="file">
+                        <div class="form-control py-3 @error('image') is-invalid @enderror">
+                            <img class="w-100 mb-3" src="{{ $product->imageUrl() }}" />
+                            <input type="file" name="image">
+                            @error('image')
+                            <p class="invalid-feedback">{{ $errors->first('image') }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>

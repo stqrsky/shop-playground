@@ -4,25 +4,21 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Product;
+
 
 class CartController extends Controller
 {
     public function show()
     {
-
-
         if (session()->has('cart')) {
             $cart = session()->get('cart');
         }
         $cart = session()->get('cart');
         return view('frontend/cart', [
-            'cart' = $cart
+            'cart' => $cart
         ]);
-       }
-
-        // $products = Product::find([]);
     }
+    // $products = Product::find([]);
 
     public function addToCart(Request $request)
     {

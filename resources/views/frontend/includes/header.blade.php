@@ -5,7 +5,8 @@
         </a>
         <a class="btn" href="cart.html">
             Cart
-            <span class="ml-1 badge badge-dark">{{ Session::has('cart') ? Session::get('cart')->quantity : '' }}</span>
+            <span class="ml-1 badge badge-dark">3</span>
+            <?php /* {{ Session::has('cart') ? Session::get('cart')->quantity : '' }} */ ?>
         </a>
     </div>
     <div class="bg-dark">

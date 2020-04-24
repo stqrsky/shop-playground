@@ -31,8 +31,9 @@ use Illuminate\Support\Facades\Route;
 
 // shop
 
+Auth::routes();
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('backend/home', [
             'productsCount' => App\Product::count(),

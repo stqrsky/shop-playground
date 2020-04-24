@@ -16,12 +16,9 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- in controller ->with('message', '..text..') // alternative: flash() // shown ONCE -->
-                @if(session('cart')->has('message'))
-                @foreach ($products as product)
                 <tr>
                     <td><img src="https://dummyimage.com/50x50/55595c/fff"> </td>
-                    <td>{{$product->product}}</td>
+                    <td>Product Name Dada</td>
                     <td>
                         <form>
                             <div class="input-group">
@@ -36,14 +33,12 @@
                         <button class="btn btn-sm btn-danger">✖</button>
                     </td>
                 </tr>
-                @endforeach
-                @endif
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="text-right"><strong>Total: {{ $totalPrice }}</strong></td>
-                    <!-- <td class="text-right"><strong>346,90 €</strong></td> -->
+                    <td class="text-right"><strong>Total</strong></td>
+                    <td class="text-right"><strong>346,90 €</strong></td>
                     <td></td>
                 </tr>
             </tbody>

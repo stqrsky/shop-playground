@@ -96,9 +96,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $data = $this->validateData();
+        if ($request->has('image')) {
+            $path = $request->file('image')->store('/products/images', 'public');
+            $data['image'] = $path;
+        }
+        $product->update($data);
+
         //validation function at the bottom
-        $product->update($this->validateData());
-        return redirect()->route('admin.products.index');
+
+        // $product->update($this->validateData());
+        // return redirect()->route('admin.products.index');
 
         //LONGER SOLUTION
         // $validateDate = $request->validate([
