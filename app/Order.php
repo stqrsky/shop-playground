@@ -8,8 +8,10 @@ class Order extends Model
 {
     protected $fillable = ['name'];
 
-    public function orderItems()
+    public function items()
     {
         return $this->hasMany('App\OrderItem');
     }
+
+    public function 
 }

@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug on Homestead",
+            "type": "php",
+            "request": "launch",
+            "pathMappings": {
+                "/home/vagrant/shop": "${workspaceRoot}"
+            },
+            "port": 9000
+        }
+    ]
+}

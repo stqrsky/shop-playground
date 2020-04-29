@@ -24,19 +24,19 @@ Route::get('/', function () {
 Route::get('/products/{product}',    'ProductController@show');
 Route::get('/categories/{category}', 'CategoryController@show');
 
-Route::get('/cart', 'CartController@show');
+Route::get('/cart', 'CartController@cart')->name('cart');
 Route::post('/cart/add', 'CartController@addToCart')->name('addToCart');
-Route::patch('/cart/update', 'CartController@updateCart');
-Route::delete('/cart/remove', 'CartController@removeFromCart');
+Route::patch('/cart/update', 'CartController@updateCart')->name('updateCart');
+Route::delete('/cart/remove', 'CartController@removeFromCart')->name('removeFromCart');
 
 Route::get('/search', 'SearchController@index')->name('search');
 
-Route::get('/checkout/shipping', function () {
-    return view('frontend/checkout/shipping');
-});
-Route::get('/checkout/payment', function () {
-    return view('frontend/checkout/payment');
-});
+Route::get('/checkout/shipping',    'CheckoutController@shipping');
+// Route::post('/checkout/shipping',   'CheckoutController@setShippingAddress');
+Route::get('/checkout/payment',     'CheckoutController@payment');
+Route::get('/checkout/success',     'CheckoutController@success');
+Route::get('/checkout/fail',        'CheckoutController@fail');
+
 
 //Aufgabe
 // Route::get('/products/{id}', function ($id) {

@@ -8,22 +8,23 @@
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 Order Summary
             </h4>
+            @foreach($cartItems as $cartItem)
             <div>Address:</div>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <pre class="mb-0">Max Musermann<br>Musterstr. 42<br>1234 Musterstadt</pre>
+                    <pre class="mb-0">{{ $address }}</pre>
                 </li>
             </ul>
             <div>Items:</div>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">1 x Product name</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 class="my-0">{{ $cartItem['name', qty] }}</h6>
+                        <small class="text-muted">{{ $cartItem['discription'] }}</small>
                     </div>
-                    <span class="text-muted">$12</span>
+                    <span class="text-muted">{{ $cartItem['price'] }}</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <!-- <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                         <h6 class="my-0">2 x Second product</h6>
                         <small class="text-muted">Brief description</small>
@@ -36,12 +37,13 @@
                         <small class="text-muted">Brief description</small>
                     </div>
                     <span class="text-muted">$5</span>
-                </li>
+                </li> -->
                 <li class="list-group-item d-flex justify-content-between text-uppercase">
-                    <strong>Total</strong>
-                    <strong>$20</strong>
+                    <strong>{{ $total }}</strong>
+                    <!-- <strong>$20</strong> -->
                 </li>
             </ul>
+            @endforeach
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Payment</h4>

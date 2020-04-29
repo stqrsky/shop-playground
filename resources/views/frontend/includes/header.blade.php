@@ -3,9 +3,9 @@
         <a href="{{ url('/') }}" class="py-4">
             <img src="https://www.neuefische.de/static/neuefische-gmbh-logo.svg" />
         </a>
-        <a class="btn" href="cart.html">
+        <a class="btn" href="{{ route('cart') }}">
             Cart
-            <span class="ml-1 badge badge-dark">3</span>
+            <span class="ml-1 badge badge-dark">{{ $cartItems['qty'] }}</span>
             <?php /* {{ Session::has('cart') ? Session::get('cart')->quantity : '' }} */ ?>
         </a>
     </div>
@@ -13,7 +13,7 @@
         <div class="container d-flex justify-content-between">
             <nav>
                 @foreach($categories as $category)
-                <a class="py-2 pr-3 d-md-inline-block text-white" href="{{ url('categories', $category) }}">{{ $category->name }}</a>
+                <a class="py-2 pr-3 d-md-inline-block text-white" href="{{ url("categories/{$category->id}") }}">{{ $category->name }}</a>
                 @endforeach
             </nav>
             <form method="GET" action="{{ route('search') }}" class="form-inline my-2 my-lg-0">

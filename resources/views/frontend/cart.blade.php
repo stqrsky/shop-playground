@@ -16,30 +16,41 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($cartItems as $cartItem)
                 <tr>
-                    <td><img src="https://dummyimage.com/50x50/55595c/fff"> </td>
-                    <td>Product Name Dada</td>
-                    <td>
-                        <form>
-                            <div class="input-group">
-                                <input class="form-control mr-2" type="text" value="1">
-                                <button type="submit" class="btn btn-sm btn-secondary">Update</button>
-                            </div>
+                    <form method="POST" class="form-inline my-2 my-lg-0" action="{{ route('updateCart', $cartItem) }}">
+                        @csrf
+                        @method('PATCH')
+                        <td><img src="https://dummyimage.com/50x50/55595c/fff"> </td>
+                        <td>{{ $cartItem['name']}}</td>
+                        <td>
+                            <form>
+                                <div class="input-group">
+                                    <input class="form-control mr-2" type="text" value={{ $product['qty'] }}>
+                                    <button type="submit" class="btn btn-sm btn-secondary">Update</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td></td>
+                        <td class="text-right">{{ $cartItem['price'] }}</td>
+                        <td class="text-right">
+                            <button class="btn btn-sm btn-danger" onclick="deleteForm.submit(); return false;">✖</button>
+                        </td>
+                        <form id="deleteForm" method="POST" action="{{ route('removeFromCart', $cartItem) }}">
+                            @csrf
+                            @method('DELETE')
                         </form>
-                    </td>
-                    <td></td>
-                    <td class="text-right">124,90 €</td>
-                    <td class="text-right">
-                        <button class="btn btn-sm btn-danger">✖</button>
-                    </td>
                 </tr>
+                @endforeach
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td class="text-right"><strong>Total</strong></td>
-                    <td class="text-right"><strong>346,90 €</strong></td>
-                    <td></td>
+                    <td class="text-right">
+                        <strong>{{ $total }}</strong> </td>
+                    <td>
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -108,13 +108,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $this->validateData();
-        $category->update([
-            'name' => $request->input('name')
-        ]);
-        $category->products()->sync($request->input('products'));
+        $category->update($this->validateData());
 
         return redirect()->route('admin.categories.index');
+
+
+        // $this->validateData();
+        // $category->update([
+        //     'name' => $request->input('name')
+        // ]);
+        // $category->products()->sync($request->input('products'));
+
+        // return redirect()->route('admin.categories.index');
 
         // $category->name = 'New Category Name';
         // $category->save();

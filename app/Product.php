@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
 
 class Product extends Model
 {
@@ -18,9 +20,22 @@ class Product extends Model
     public function imageUrl()
     {
         if ($this->image) {
-            return \Storage::url($this->image);
+            return Storage::url($this->image);
         }
 
         return 'https://via.placeholder.com/500';
+    }
+
+    public function remove($rowId)
+    {
+        $cartItem = $this->get($rowId);
+
+        $content = $this->getContent();
+
+        $content->pull($cartItem->rowId);
+
+        $this->events->fire('removeFromCart', $cartItem);
+
+        $this->session->put($this->instance, $content);
     }
 }
