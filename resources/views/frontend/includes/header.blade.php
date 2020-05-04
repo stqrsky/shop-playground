@@ -5,7 +5,7 @@
         </a>
         <a class="btn" href="{{ route('cart') }}">
             Cart
-            <span class="ml-1 badge badge-dark">{{ $cartItems['qty'] }}</span>
+            <span class="ml-1 badge badge-dark">cartItem</span>
             <?php /* {{ Session::has('cart') ? Session::get('cart')->quantity : '' }} */ ?>
         </a>
     </div>
