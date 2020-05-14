@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,24 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/products', function () {
-//     $products = [
-//         'id1' => '10Liter Disinfectant',
-//         'id2' => 'Maske',
-//         'id3' => 'Toiletpaper',
-//         'id4' => 'Socken',
-//         'id5' => '5Kilo Nudeln',
-//         'id6' => '30min Sonnenstrahlen',
-//     ];
-//     return view('products', ['products' => $products]);
-// });
-
-// shop
-
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
@@ -38,31 +21,13 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         return view('backend/home', [
             'productsCount' => App\Product::count(),
             'categoriesCount' => App\Category::count(),
+            'ordersCount' => App\Order::count(),
+            'usersCount' => App\User::count(),
         ]);
-    });
+    })->name('home');
 
     Route::resource('/products', 'ProductController');
     Route::resource('/categories', 'CategoryController');
+    Route::resource('/orders', 'OrderController')->only(['index', 'show']);
     Route::resource('/users', 'UserController');
-
-    Route::get('/orders',             function () {
-        return view('backend/orders/index');
-    });
-    Route::get('/orders/show',        function () {
-        return view('backend/orders/show');
-    });
 });
-
-
-
-// Route::get('/products/{id}', function ($id) {
-//     $products = [
-//         'id1' => '10Liter Desinfektionsmittel',
-//         'id2' => 'Maske',
-//         'id3' => 'Toiletpaper'
-//     ];
-//     if (array_key_exists($id, $products)) {
-//         return $products[$id];
-//     }
-//     abort(404);
-// });

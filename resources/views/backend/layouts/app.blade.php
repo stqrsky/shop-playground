@@ -13,7 +13,9 @@
 <body class="app sidebar-mini rtl">
     @include('backend/includes/header')
     @include('backend/includes/sidebar')
-    @yield('content')
+    <main class="app-content">
+        @yield('content')
+    </main>
     @include('backend/includes/footer')
 </body>
 

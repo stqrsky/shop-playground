@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-5">
-            <img class="img-fluid mb-3" src="https://images.unsplash.com/photo-1510018572596-e40e2619b412?fit=crop&w=500&h=350&q=80" />
+            <img class="img-fluid mb-3" src="{{ $product->image }}" />
         </div>
         <div class="col-md-7">
             <h1>{{ $product->name }}</h1>
@@ -17,7 +17,7 @@
                 @endif
             </div>
             <p class="mb-4 text-muted">{{ $product->description }}</p>
-            <form method="POST" action="{{ route('addToCart') }}" class="row mb-5 align-items-end">
+            <form method="POST" action="{{ url('cart/add') }}" class="row mb-5 align-items-end">
                 @csrf
 
                 <input name="id" type="hidden" value="{{ $product->id }}">

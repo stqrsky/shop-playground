@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Category;
-use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoryController extends \App\Http\Controllers\Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // $categories = Category::all();
-        // return view('backend/categories/index', ['categories' => $categories]);
-
         return view('backend/categories/index', [
-            // 'categories' => Category::all()->sortByDesc("id")
             'categories' => Category::paginate(10)
         ]);
     }
@@ -32,10 +27,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view(
-            'backend/categories/create',
-            ['allProducts' => Product::all()]
-        );
+        return view('backend/categories/create', [
+            'allProducts' => Product::all()
+        ]);
     }
 
     /**
@@ -53,23 +47,6 @@ class CategoryController extends Controller
         $category->products()->sync($request->input('products'));
 
         return redirect()->route('admin.categories.index');
-
-        // $data = $this->validateData();
-        // Category::create($data);
-        // return redirect()->route('admin/categories/index');
-
-        ////LONGER WAY
-        // $validateData = $request->validate([
-        //     'name' => 'required|min:3',
-        // ]);
-        // $category->create($validateData);
-        // return redirect()->route('admin/categories/index');
-
-        // // LONGER WAY
-        // $category = new Category();
-        // $category->name = $request->name;
-        // $category->save();
-        // return redirect()->route('admin/categories.index');
     }
 
     /**
@@ -96,7 +73,6 @@ class CategoryController extends Controller
             'allProducts' => Product::all(),
             'selectedProducts' => $category->products
         ]);
-        // return view('backend/categories/edit', ['category' => $category]);
     }
 
     /**
@@ -108,32 +84,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category->update($this->validateData());
+        $this->validateData();
+        $category->update([
+            'name' => $request->input('name')
+        ]);
+        $category->products()->sync($request->input('products'));
 
         return redirect()->route('admin.categories.index');
-
-
-        // $this->validateData();
-        // $category->update([
-        //     'name' => $request->input('name')
-        // ]);
-        // $category->products()->sync($request->input('products'));
-
-        // return redirect()->route('admin.categories.index');
-
-        // $category->name = 'New Category Name';
-        // $category->save();
-        // return redirect('admin/categories');
-
-        ////LONGER WAY
-        // $validateData = request()->validate([
-        //     'name' => 'required|min:3',
-        // ]);
-        // $category->update($validateData);
-        // return redirect()->route('admin.categories.index');
-
-        // $category->name = 'New Category Name';
-        // $category->save();
     }
 
     /**
@@ -145,9 +102,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
+
         return redirect()->route('admin.categories.index');
     }
-
 
     public function validateData()
     {

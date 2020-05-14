@@ -9,81 +9,76 @@
                 Order Summary
             </h4>
             <ul class="list-group mb-3">
+                @foreach($order->orderItems as $item)
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                        <h6 class="my-0">1 x Product name</h6>
-                        <small class="text-muted">Brief description</small>
+                        <h6 class="my-0">{{ $item->qty }} x {{ $item->name }}</h6>
+                        <small class="text-muted">{{ Str::limit($item->description, 25) }}</small>
                     </div>
-                    <span class="text-muted">$12</span>
+                    <span class="text-muted">{{ $item->price }}€</span>
                 </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">2 x Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$8</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">2 x Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$5</span>
-                </li>
+                @endforeach
                 <li class="list-group-item d-flex justify-content-between text-uppercase">
                     <strong>Total</strong>
-                    <strong>$20</strong>
+                    <strong>{{ $order->getTotal() }}€</strong>
                 </li>
             </ul>
         </div>
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Shipping Address</h4>
-            <form class="needs-validation" novalidate="">
+            <form method="POST">
+                @csrf
+
                 <div class="mb-3">
                     <label for="fullName">Full name</label>
-                    <input type="text" class="form-control" name="fullName" value="">
-                    <div class="invalid-feedback">
-                        Valid Name is required.
-                    </div>
+                    <input type="text" class="form-control @error('fullName') is-invalid @enderror" name="fullName"
+                        value="{{ old('fullName') }}">
+                    @error('fullName')
+                    <p class="invalid-feedback">{{ $errors->first('fullName') }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" name="address">
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
+                    <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
+                        value="{{ old('address') }}">
+                    @error('address')
+                    <p class="invalid-feedback">{{ $errors->first('address') }}</p>
+                    @enderror
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-4">
                         <label for="zip">Zip</label>
-                        <input type="text" class="form-control" name="zip">
-                        <div class="invalid-feedback">
-                            Zip code required.
-                        </div>
+                        <input type="text" class="form-control @error('zip') is-invalid @enderror" name="zip"
+                            value="{{ old('zip') }}">
+                        @error('zip')
+                        <p class="invalid-feedback">{{ $errors->first('zip') }}</p>
+                        @enderror
                     </div>
                     <div class="col-md-4 mb-4">
-                        <label for="city">City</label>
-                        <input type="text" class="form-control" name="city">
-                        <div class="invalid-feedback">
-                            Please provide a valid city.
-                        </div>
+                        <label for="state">City</label>
+                        <input type="text" class="form-control @error('city') is-invalid @enderror" name="city"
+                            value="{{ old('city') }}">
+                        @error('city')
+                        <p class="invalid-feedback">{{ $errors->first('city') }}</p>
+                        @enderror
                     </div>
                     <div class="col-md-4 mb-4">
                         <label for="country">Country</label>
-                        <select class="custom-select d-block w-100" name="country">
+                        <select class="custom-select d-block w-100 @error('country') is-invalid @enderror"
+                            name="country">
                             <option value="">Choose...</option>
                             <option>Germany</option>
                         </select>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
-                        </div>
+                        @error('country')
+                        <p class="invalid-feedback">{{ $errors->first('country') }}</p>
+                        @enderror
                     </div>
                 </div>
                 <hr class="mb-4">
                 <div class="d-flex justify-content-between">
-                    <a href="/cart" class="btn btn-light">Back</a>
+                    <a href="{{ route('cart') }}" class="btn btn-light">Back</a>
                     <button class="btn btn-primary" type="submit">Continue</button>
                 </div>
             </form>
